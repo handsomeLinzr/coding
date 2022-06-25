@@ -1,6 +1,8 @@
-package com.azhe.coding;
+package com.azhe.coding.newhand;
 
 import java.util.Arrays;
+import java.util.Objects;
+
 
 /**
  * Description:
@@ -10,13 +12,22 @@ import java.util.Arrays;
  */
 public class Code01 {
     public static void main(String[] args) {
-//        print(Integer.MIN_VALUE);
-//        System.out.println(mul(5));
-        int[] arr = {1,6,4,89,45,2,3,4,7,2,5,31};
-//        selectSort(arr);
-//        bubbleSort(arr);
-        insertSort(arr);
-        printArr(arr);
+        for (int num = 0; num < 100; num++) {
+            int[] arr = Code02.randomArr();
+            int[] copy = copyArr(arr);
+            int[] copy1 = copyArr(arr);
+            int[] copy2 = copyArr(arr);
+            selectSort(arr);
+            bubbleSort(copy1);
+            insertSort(copy2);
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] != copy1[i] || arr[i] != copy2[i]) {
+                    printArr(copy);
+                    System.out.println("不一样");
+                }
+            }
+        }
+        System.out.println("成功");
     }
 
     /**
@@ -87,6 +98,9 @@ public class Code01 {
      * @param arr
      */
     private static void insertSort(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
         for (int i = 1; i < arr.length; i++) {
             // i 为当前数最开始需要插入数据的位置
             for (int j = i; j > 0 && arr[j] < arr[j-1]; j--) {
@@ -114,5 +128,21 @@ public class Code01 {
      */
     private static void printArr(int[] arr) {
         System.out.println(Arrays.toString(arr));
+    }
+
+    /**
+     * 复制数组
+     * @param arr
+     * @return
+     */
+    private static int[] copyArr(int[] arr) {
+        if (Objects.isNull(arr) || arr.length == 0) {
+            return new int[0];
+        }
+        int[] copy = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            copy[i] = arr[i];
+        }
+        return copy;
     }
 }
