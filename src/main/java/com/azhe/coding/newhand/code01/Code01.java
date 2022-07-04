@@ -1,4 +1,6 @@
-package com.azhe.coding.newhand;
+package com.azhe.coding.newhand.code01;
+
+import com.azhe.coding.newhand.code02.Code02;
 
 import java.util.Arrays;
 import java.util.Objects;
