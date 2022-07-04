@@ -6,11 +6,6 @@ import java.util.LinkedList;
  * Description:
  * 单链表反转
  * 双链表反转
- * 单链表实现队列和栈
- * 双链表实现双端队列
- * 单向链表K个节点的组内反转调整  leetcode 25
- * 两个链表相加
- * 两个有序链表合并
  *
  * @author Linzherong
  * @date 2022/7/3 3:06 下午
