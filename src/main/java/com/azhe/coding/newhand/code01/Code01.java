@@ -14,22 +14,24 @@ import java.util.Objects;
  */
 public class Code01 {
     public static void main(String[] args) {
-        for (int num = 0; num < 100; num++) {
-            int[] arr = Code02.randomArr();
-            int[] copy = copyArr(arr);
-            int[] copy1 = copyArr(arr);
-            int[] copy2 = copyArr(arr);
-            selectSort(arr);
-            bubbleSort(copy1);
-            insertSort(copy2);
-            for (int i = 0; i < arr.length; i++) {
-                if (arr[i] != copy1[i] || arr[i] != copy2[i]) {
-                    printArr(copy);
-                    System.out.println("不一样");
-                }
-            }
-        }
-        System.out.println("成功");
+//        for (int num = 0; num < 100; num++) {
+//            int[] arr = Code02.randomArr();
+//            int[] copy = copyArr(arr);
+//            int[] copy1 = copyArr(arr);
+//            int[] copy2 = copyArr(arr);
+//            selectSort(arr);
+//            bubbleSort(copy1);
+//            insertSort(copy2);
+//            for (int i = 0; i < arr.length; i++) {
+//                if (arr[i] != copy1[i] || arr[i] != copy2[i]) {
+//                    printArr(copy);
+//                    System.out.println("不一样");
+//                }
+//            }
+//        }
+//        System.out.println("成功");
+//        print64(8589934592L);
+        print(-3);
     }
 
     /**
@@ -40,6 +42,18 @@ public class Code01 {
         for (int i = 31; i >= 0; i--) {
             // 小端，左边高位
             System.out.print( (num & (1 << i)) == 0? "0" : "1");
+        }
+    }
+
+
+    //8589934592
+    // 打印64位二进制
+    private static void print64(long num) {
+        for (int i = 63; i >= 0; i--) {
+            if (((i + 1) & 7) == 0) {
+                System.out.print("\t");
+            }
+            System.out.print((num & (1L << i)) == 0 ? "0" : "1");
         }
     }
 
