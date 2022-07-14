@@ -1,5 +1,7 @@
 package com.azhe.coding.newhand.code06;
 
+import java.util.Stack;
+
 /**
  * Description:
  * 平衡二叉树
@@ -50,6 +52,142 @@ public class TraversalBinaryTree {
         System.out.println();
         System.out.println("===================");
         process3(treeNode);
+        System.out.println();
+        System.out.println("===================");
+        System.out.println(isSameTree2(new TreeNode(0, new TreeNode(-5), null), new TreeNode(0, new TreeNode(-8), null)));
+        System.out.println("=====================");
+        System.out.println(maxDepth(new TreeNode(0, new TreeNode(-5), null)));
+    }
+
+    /**
+     * 从先序遍历和中序遍历组装树
+     * 思考：
+     * 先序遍历: 头——>左——>右   第一个是头结点
+     * 中序遍历: 左——>头——>右   都结点左右各自组成树
+     * @param preorder 先序遍历
+     * @param inorder 中序遍历
+     * @return
+     */
+    public static TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null || inorder.length == 0 || preorder.length != inorder.length) {
+            return null;
+        }
+        return makeTree(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
+    }
+
+    /**
+     * 构建树
+     * @return
+     */
+    public static TreeNode makeTree(int[] p, int l1, int r1, int[] q, int l2, int r2) {
+        if (l1 > r1 || l2 > r2) {
+            // 已经越过
+            return null;
+        }
+        // 当前节点，先序遍历中，第一个为头结点
+        TreeNode node = new TreeNode(p[l1]);
+        // 获得头结点在中序遍历中的位置，则其左边的为左节点的数组，右边为右节点数组
+        int find = l2;
+        while (p[l1] != q[find]) {
+            find++;
+        }
+        // find 是头结点，find-l2 得到左节点的数量，则 l1+find-f2 得到先序遍历中左节点的最后一个数
+        node.left = makeTree(p, l1+1, l1+find-l2, q, l2, find-1);
+        node.right = makeTree(p, l1+find-l2+1, r1, q, find+1, r2);
+        return node;
+    }
+
+    /**
+     * 最大深度
+     * @param root
+     * @return
+     */
+    public static int maxDepth2(TreeNode root) {
+      if (root == null) {
+          return 0;
+      }
+      return Math.max(maxDepth2(root.left), maxDepth2(root.right)) + 1;
+    }
+
+    /**
+     * 最大深度
+     * @param root
+     * @return
+     */
+    public static int maxDepth(TreeNode root) {
+        return getMaxDepth(0, root);
+    }
+
+    public static int getMaxDepth(int curDepth, TreeNode node) {
+        if (node == null) {
+            return curDepth;
+        }
+        return Math.max(getMaxDepth(curDepth + 1, node.left), getMaxDepth(curDepth + 1, node.right));
+    }
+
+    /**
+     * 镜面树
+     * @param root
+     * @return
+     */
+    public static boolean isSymmetric(TreeNode root) {
+        return isMirror(root, root);
+    }
+
+    /**
+     * 是否互成镜面
+     * @param p
+     * @param q
+     * @return
+     */
+    public static boolean isMirror(TreeNode p, TreeNode q) {
+        if (p == null ^ q == null) {
+            return false;
+        }
+        if (p == null) {
+            return true;
+        }
+        return p.val == q.val && isMirror(p.left, q.right) && isMirror(p.right, q.left);
+    }
+
+    /**
+     * 相同树
+     * @param p
+     * @param q
+     * @return
+     */
+    public static boolean isSameTree1(TreeNode p, TreeNode q) {
+        if (p== null ^ q== null) {
+            return false;
+        }
+        if ( p== null ) {
+            return true;
+        }
+        return p.val == q.val && isSameTree1(p.left, q.left) && isSameTree1(p.right, q.right);
+    }
+
+    public static boolean isSameTree2(TreeNode p, TreeNode q) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(p);
+        stack.push(q);
+        while (!stack.isEmpty()) {
+            p = stack.pop();
+            q = stack.pop();
+            if (p== null ^ q== null) {
+                return false;
+            }
+            if ( p == null ) {
+                continue;
+            }
+            if (p.val != q.val) {
+                return false;
+            }
+            stack.push(p.left);
+            stack.push(q.left);
+            stack.push(p.right);
+            stack.push(q.right);
+        }
+        return true;
     }
 
     /**
