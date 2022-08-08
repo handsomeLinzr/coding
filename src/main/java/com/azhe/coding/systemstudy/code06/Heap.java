@@ -30,6 +30,10 @@ public class Heap {
         int[] arr = new int[]{3,6,2,1,7,9,5,7};
         heapSort(arr);
         System.out.println(Arrays.toString(arr));
+        System.out.println("=========================");
+        int[] arr1 = new int[]{3,6,2,1,7,9,5,7};
+        heapSortSmallBig(arr1);
+        System.out.println(Arrays.toString(arr1));
     }
 
     /**
@@ -166,6 +170,51 @@ public class Heap {
         int temp = heap[p];
         heap[p] = heap[q];
         heap[q] = temp;
+    }
+
+    /**
+     * 从大到小
+     * @param arr
+     */
+    private static void heapSortSmallBig(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        int size = arr.length;
+        for (int i = (size-2) >> 1; i >= 0; i--) {  // 因为叶子节点向下只有单独自己一个节点，必定是堆，可以直接忽略
+            // 循环构建小根堆，最后头结点是最小值
+            heapIfySmall(arr, i, arr.length);
+        }
+        swap(arr, 0, --size); // 交换首位节点，此时尾节点是最小值
+        while (size > 0) {
+            heapIfySmall(arr, 0, size);
+            swap(arr, 0, --size);
+        }
+    }
+
+    /**
+     * 小根堆
+     */
+    private static void heapIfySmall(int[] arr, int index, int maxSize) {
+        int childLeft = index * 2 + 1;
+        while (childLeft < maxSize) {
+            // 比较index和子节点，获得最小的节点
+            int lessIdx = childLeft + 1 < maxSize && arr[childLeft+1] < arr[childLeft]? childLeft+1:childLeft;
+            lessIdx = arr[index] < arr[lessIdx]? index : lessIdx;
+            if (lessIdx == index) {  // 当前节点已经是最小了，则停止
+                break;
+            }
+            swap(arr, index, lessIdx);
+            index = lessIdx;
+            childLeft = index * 2 + 1;
+        }
+    }
+
+    private static void heapInsertSmall(int[] arr, int index) {
+        while (arr[index] < arr[(index-1)>>1]) {
+            swap(arr, index, (index-1)>>1);
+            index = (index-1)>>1;
+        }
     }
 
 

@@ -8,5 +8,5 @@ package com.azhe.coding.systemstudy.code07;
  * @author Linzherong
  * @date 2022/8/5 10:45 下午
  */
-public class  HeapGreateTopK {
+public class HeapGrateTopK {
 }
