@@ -190,7 +190,7 @@ public class Code02 {
 
     // 利用p函数等概率返回0~7
     // 思路，利用 p函数 获得两个等概率的事件，如：调用两次，0，1 和 1，0 的概率是一样的，则可以以此入手
-    public static int p_to_0_7() {
+    public static int p_to_0_and_1() {
         // 转等概率0到7
         int r;
         do {
@@ -198,6 +198,11 @@ public class Code02 {
         } while (r == p());
         return r;
     }
+    // 有了等概率0和1，获取3次，得到3位的二进制，就可以等概率表示0~7
+    public static int p_to_0_to_7() {
+        return (p_to_0_and_1()<<2) + (p_to_0_and_1()<<1) + p_to_0_and_1();
+    }
+
 
     // 这个结构是唯一的随机机制
     // 你只能初始化并使用，不可修改
