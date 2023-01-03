@@ -67,17 +67,21 @@ public class ThreadPoolExecutorDemo {
 //        myExecutor.execute(()-> System.out.println(Thread.currentThread().getName()));
 
         // 定时线程池做调度
-        ScheduledExecutorService scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
-        // 具体执行业务的线程池
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ScheduledExecutorService scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(5);
+//        // 具体执行业务的线程池
+//        ExecutorService executorService = Executors.newCachedThreadPool();
+//
+//        // 用执行线程池执行业务，定时线程池不会阻塞
+//        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
+//        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
+//        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
+//        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
+//        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
 
-        // 用执行线程池执行业务，定时线程池不会阻塞
-        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
-        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
-        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
-        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
-        scheduledThreadPoolExecutor.schedule(()->executorService.execute(()-> System.out.println(1)), 1, TimeUnit.SECONDS);
-
+        scheduledThreadPoolExecutor.schedule(()-> System.out.println(1), 1, TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(()-> System.out.println(1), 1, 1, TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.scheduleWithFixedDelay(()-> System.out.println(1), 1, 1, TimeUnit.SECONDS);
+//        scheduledThreadPoolExecutor.shutdown();
     }
 
 }
