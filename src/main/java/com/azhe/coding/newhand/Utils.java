@@ -22,7 +22,7 @@ public class Utils {
         // 获取长度
         int size;
         do {
-            size = RANDOM.nextInt(maxNum);
+            size = RANDOM.nextInt(maxSize);
         } while (size <= 0);
         int[] result = new int[size];
         for (int i = 0; i < size; i++) {
@@ -30,6 +30,23 @@ public class Utils {
             result[i] = Math.random() < 0.5? c : -c;
         }
         return result;
+    }
+
+    public static int[] getRandomArraySorted(int maxNum, int maxSize) {
+        int size;
+        do {
+            size = RANDOM.nextInt(maxSize);
+        } while (size <= 0);
+        int[] arr = new int[size];
+        arr[0] = -5;
+        for (int i = 1; i < arr.length; i++) {
+            int c;
+            do {
+               c = RANDOM.nextInt(maxNum);
+            } while (c == 0);
+            arr[i] = arr[i-1] + c;
+        }
+        return arr;
     }
 
     /**
